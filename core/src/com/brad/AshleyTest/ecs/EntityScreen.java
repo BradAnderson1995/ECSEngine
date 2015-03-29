@@ -48,7 +48,7 @@ public class EntityScreen extends AbstractScreen
         motionSystem = new MotionSystem(tps);
         collisionSystem = new CollisionSystem();
         cameraControlSystem = new CameraControlSystem();
-        cameraInputControllerSystem = new CameraInputControllerSystem(Family.all(CameraControlComponent.class).get(), game.controls);
+        cameraInputControllerSystem = new CameraInputControllerSystem(Family.all(CameraControlComponent.class).get(), game.controls, tps);
         logger = new FPSLogger();
 
         engine.addSystem(animationSystem);
