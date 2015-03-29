@@ -4,10 +4,14 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
+import com.brad.AshleyTest.ecs.components.AnimationComponent;
 import com.brad.AshleyTest.ecs.components.AssetComponent;
 import com.brad.AshleyTest.ecs.components.CameraControlComponent;
 import com.brad.AshleyTest.ecs.components.MapComponent;
 import com.brad.AshleyTest.ecs.components.MotionComponent;
+import com.brad.AshleyTest.ecs.components.PlayerControlComponent;
 import com.brad.AshleyTest.ecs.components.TextureComponent;
 import com.brad.AshleyTest.ecs.components.TransformComponent;
 
@@ -38,7 +42,7 @@ public class EntityFactory
         TransformComponent transform = engine.createComponent(TransformComponent.class);
         CameraControlComponent camera = engine.createComponent(CameraControlComponent.class);
         MotionComponent motion = engine.createComponent(MotionComponent.class);
-        transform.pos.set(5, 4, 0);
+        transform.pos.set(10, 8, 0);
         camera.camera = new OrthographicCamera();
         entity.add(transform);
         entity.add(camera);
@@ -46,15 +50,37 @@ public class EntityFactory
         return entity;
     }
 
-    public Entity createSnake(AssetManager manager) {
+    public Entity createMario(AssetManager manager) {
         Entity entity = engine.createEntity();
-        entity.add(engine.createComponent(TransformComponent.class));
+        TransformComponent transform = engine.createComponent(TransformComponent.class);
         TextureComponent texture = engine.createComponent(TextureComponent.class);
         AssetComponent assets = engine.createComponent(AssetComponent.class);
+        AnimationComponent animation = engine.createComponent(AnimationComponent.class);
+        MotionComponent motion = engine.createComponent(MotionComponent.class);
+        PlayerControlComponent control = engine.createComponent(PlayerControlComponent.class);
+        transform.pos.set(16.f, 32.f, 1);
         assets.atlasName = "sprites/packed/game/game.atlas";
-        assets.textureName.add("SnakeNode");
+        assets.textureName.add("mario0");
+        assets.textureName.add("mario-run0");
+        assets.textureName.add("mario-run1");
+        assets.textureName.add("mario-run2");
+        texture.textures.put("mario0", new TextureRegion());
+        texture.textures.put("mario-run0", new TextureRegion());
+        texture.textures.put("mario-run1", new TextureRegion());
+        texture.textures.put("mario-run2", new TextureRegion());
+        Array<String> runTextures = new Array<String>();
+        runTextures.add("mario-run0");
+        runTextures.add("mario-run1");
+        runTextures.add("mario-run2");
+//        Animation runAnimation = new Animation(5, runTextures, Animation.PlayMode.LOOP_PINGPONG);
+        animation.animations.put("mario-run", runTextures);
+        texture.frameString = "mario0";
+        entity.add(transform);
+        entity.add(control);
+        entity.add(animation);
         entity.add(assets);
         entity.add(texture);
+        entity.add(motion);
         return entity;
     }
 }

@@ -3,6 +3,7 @@ package com.brad.AshleyTest.ecs.systems;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.SortedIteratingSystem;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -34,7 +35,7 @@ public class RenderingSystem extends SortedIteratingSystem
         this.batch = batch;
         this.cameraControl = Mappers.cameraControl.get(control);
         camera = new OrthographicCamera();
-        viewport = new FitViewport(viewWidth, viewHeight, camera);
+        viewport = new FitViewport(20 * 16, 15 * 16, camera);
         viewport.apply(true);
     }
 
@@ -42,7 +43,9 @@ public class RenderingSystem extends SortedIteratingSystem
     public void update(float delta) {
         // Clear the screen (necessary for performance)
         camera.update();
-        camera.position.set(cameraControl.camera.position);
+        camera.position.set(160, 8 * 15 + 8, 0);
+//        camera.position.set(viewport.getScreenX()/2f, viewport.getScreenY()/2f, 0);
+//        camera.position.set(cameraControl.camera.position);
 //        Gdx.gl.glClearColor(0, 0, 0, 1);
 //        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -65,11 +68,15 @@ public class RenderingSystem extends SortedIteratingSystem
         } else {
             batch.enableBlending();
         }
-
-        // Draw the entity
-        batch.draw(Mappers.texture.get(entity).region, transform.pos.x, transform.pos.y,
-                transform.origin.x, transform.origin.y, transform.size.x, transform.size.y,
-                transform.scale.x, transform.scale.y, transform.rotation, transform.clockwise);
+        if (Mappers.texture.get(entity).region != null) {
+//            Gdx.app.log("RenderingSystem", "Drawing");
+            // Draw the entity
+            Gdx.app.log(Float.toString(transform.pos.x) + " " + Float.toString(transform.pos.y), Float.toString(camera.position.x) + " " + Float.toString(camera.position.y));
+//            batch.draw(Mappers.texture.get(entity).region, transform.pos.x, transform.pos.y,
+//                    transform.origin.x, transform.origin.y, transform.size.x, transform.size.y,
+//                    transform.scale.x, transform.scale.y, transform.rotation, transform.clockwise);
+            batch.draw(Mappers.texture.get(entity).region, transform.pos.x, transform.pos.y);
+        }
     }
 }
 

@@ -1,12 +1,47 @@
 
 game.png
-size: 64,32
+size: 64,64
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+BigMario1
+  rotate: false
+  xy: 2, 22
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+mario-run0
+  rotate: false
+  xy: 20, 38
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+mario-run1
+  rotate: false
+  xy: 20, 20
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+mario-run2
+  rotate: false
+  xy: 38, 38
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+mario0
+  rotate: false
+  xy: 2, 4
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
 snakeNode
   rotate: false
-  xy: 2, 2
+  xy: 38, 20
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

@@ -10,13 +10,14 @@ import com.badlogic.gdx.utils.Pool;
  */
 public class TextureComponent extends Component implements Pool.Poolable
 {
-    public TextureRegion region = null;
-    public ObjectMap<String, TextureRegion> textures = null;
+    public TextureRegion region = new TextureRegion();
+    public ObjectMap<String, TextureRegion> textures = new ObjectMap<String, TextureRegion>();
     public String frameString = null;
 
     @Override
     public void reset() {
-        region = null;
+        region = new TextureRegion();
+        textures.clear();
         frameString = null;
     }
 }

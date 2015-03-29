@@ -4,13 +4,14 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.brad.AshleyTest.AshleyTest;
-import com.brad.AshleyTest.ecs.components.CameraControlComponent;
+import com.brad.AshleyTest.ecs.components.PlayerControlComponent;
 import com.brad.AshleyTest.ecs.systems.AnimationSystem;
 import com.brad.AshleyTest.ecs.systems.CameraControlSystem;
 import com.brad.AshleyTest.ecs.systems.CameraInputControllerSystem;
 import com.brad.AshleyTest.ecs.systems.CollisionSystem;
 import com.brad.AshleyTest.ecs.systems.MapRenderingSystem;
 import com.brad.AshleyTest.ecs.systems.MotionSystem;
+import com.brad.AshleyTest.ecs.systems.RenderPrepareSystem;
 import com.brad.AshleyTest.ecs.systems.RenderingSystem;
 import com.brad.AshleyTest.framework.screen.AbstractScreen;
 
@@ -21,6 +22,7 @@ public class EntityScreen extends AbstractScreen
 {
     private EntityFactory factory;
     private AnimationSystem animationSystem;
+    private RenderPrepareSystem renderPrepareSystem;
     private RenderingSystem renderingSystem;
     private MotionSystem motionSystem;
     private CollisionSystem collisionSystem;
@@ -29,6 +31,7 @@ public class EntityScreen extends AbstractScreen
     private CameraInputControllerSystem cameraInputControllerSystem;
     private Entity mapEntity;
     private Entity cameraControlEntity;
+    private Entity mario;
     private boolean addedMap = false;
     private FPSLogger logger;
 
@@ -40,18 +43,22 @@ public class EntityScreen extends AbstractScreen
         factory = new EntityFactory(engine);
         animationSystem = new AnimationSystem();
         cameraControlEntity = factory.createCameraControl();
+        mario = factory.createMario(game.manager);
         engine.addEntity(cameraControlEntity);
+        engine.addEntity(mario);
+        renderPrepareSystem = new RenderPrepareSystem(game.batch);
         renderingSystem = new RenderingSystem(game.batch, cameraControlEntity, xWidth, yHeight);
-        mapEntity = factory.createMap("maps/map.tmx");
-        game.assetSystem.addMap("maps/map.tmx");
-        mapRenderingSystem = new MapRenderingSystem(game.batch, cameraControlEntity, 10, 8, 16);
+        mapEntity = factory.createMap("maps/mario.tmx");
+        game.assetSystem.addMap("maps/mario.tmx");
+        mapRenderingSystem = new MapRenderingSystem(game.batch, cameraControlEntity, 20, 15, 16);
         motionSystem = new MotionSystem(tps);
         collisionSystem = new CollisionSystem();
         cameraControlSystem = new CameraControlSystem();
-        cameraInputControllerSystem = new CameraInputControllerSystem(Family.all(CameraControlComponent.class).get(), game.controls, tps);
+        cameraInputControllerSystem = new CameraInputControllerSystem(Family.all(PlayerControlComponent.class).get(), game.controls, tps);
         logger = new FPSLogger();
 
         engine.addSystem(animationSystem);
+        engine.addSystem(renderPrepareSystem);
         engine.addSystem(mapRenderingSystem);
         engine.addSystem(renderingSystem);
         engine.addSystem(motionSystem);
@@ -59,6 +66,9 @@ public class EntityScreen extends AbstractScreen
         engine.addSystem(cameraControlSystem);
         engine.addSystem(cameraInputControllerSystem);
         game.input.addProcessor(cameraInputControllerSystem);
+
+        game.assetSystem.addAtlas("sprites/packed/game/game.atlas");
+        game.assetSystem.addAtlas("sprites/packed/env/env.atlas");
     }
 
     @Override
@@ -83,6 +93,7 @@ public class EntityScreen extends AbstractScreen
         super.dispose();
         engine.removeAllEntities();
         engine.removeSystem(mapRenderingSystem);
+        engine.removeSystem(renderPrepareSystem);
         engine.removeSystem(renderingSystem);
         engine.removeSystem(motionSystem);
         engine.removeSystem(collisionSystem);

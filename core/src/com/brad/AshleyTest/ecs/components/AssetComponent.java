@@ -12,16 +12,17 @@ public class AssetComponent extends Component implements Pool.Poolable
     public Array<String> textureName;
     public String atlasName;
     public String mapName;
+    public boolean handledAssets = false;
 
     public AssetComponent() {
-        textureName = null;
+        textureName = new Array<String>();
         atlasName = null;
         mapName = null;
     }
 
     @Override
     public void reset() {
-        textureName = null;
+        textureName.clear();
         atlasName = null;
         mapName = null;
     }

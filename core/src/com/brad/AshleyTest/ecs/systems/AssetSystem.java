@@ -17,6 +17,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.brad.AshleyTest.ecs.Mappers;
+import com.brad.AshleyTest.ecs.components.AnimationComponent;
 import com.brad.AshleyTest.ecs.components.AssetComponent;
 import com.brad.AshleyTest.ecs.components.MapComponent;
 import com.brad.AshleyTest.ecs.components.SoundComponent;
@@ -30,6 +31,7 @@ import java.util.HashMap;
  */
 public class AssetSystem extends EntitySystem implements EntityListener, Disposable
 {
+    public boolean assetsLoaded = false;
     HashMap<String, TextureAtlas> atlases;
     Array<String> textures;
     Array<String> maps;
@@ -38,6 +40,8 @@ public class AssetSystem extends EntitySystem implements EntityListener, Disposa
     HashMap<String, BitmapFont> fonts;
     AssetManager manager;
     Engine engine;
+    //    private Family assetFamily = Family.all(AssetComponent.class).get();
+    private Family animationFamily = Family.all(AssetComponent.class, TextureComponent.class, AnimationComponent.class).get();
     private Family textureFamily = Family.all(AssetComponent.class, TextureComponent.class).get();
     private Family mapFamily = Family.all(AssetComponent.class, MapComponent.class).get();
     private Family soundFamily = Family.all(AssetComponent.class, SoundComponent.class).get();
@@ -71,7 +75,19 @@ public class AssetSystem extends EntitySystem implements EntityListener, Disposa
     public void update(float delta) {
         for (Entity entity : engine.getEntitiesFor(textureFamily)) {
             TextureComponent texture = Mappers.texture.get(entity);
-            texture.region = texture.textures.get(texture.frameString);
+            if (!Mappers.asset.get(entity).handledAssets) {
+                for (String textureName : Mappers.asset.get(entity).textureName) {
+                    texture.textures.put(textureName, atlases.get(Mappers.asset.get(entity).atlasName).findRegion(textureName));
+                }
+                Mappers.asset.get(entity).handledAssets = true;
+            }
+            if (animationFamily.matches(entity)) {
+                if (!Mappers.animation.get(entity).animationRunning) {
+                    texture.region = texture.textures.get(texture.frameString);
+                }
+            } else {
+                texture.region = texture.textures.get(texture.frameString);
+            }
         }
     }
 
@@ -84,6 +100,8 @@ public class AssetSystem extends EntitySystem implements EntityListener, Disposa
     public void retrieveAssets() {
         retrieveAtlases(manager, atlases);
 //        retrieveTextures(manager, textures);
+        assetsLoaded = true;
+
     }
 
     public void retrieveAtlases(AssetManager manager, HashMap<String, TextureAtlas> atlases) {
@@ -102,10 +120,13 @@ public class AssetSystem extends EntitySystem implements EntityListener, Disposa
 
     @Override
     public void entityAdded(Entity entity) {
-        // TODO: Check for whether assets are loaded in already and load them in if not
-        if (textureFamily.matches(entity)) {
-            for (String textureName : Mappers.asset.get(entity).textureName) {
-                Mappers.texture.get(entity).textures.put(textureName, atlases.get(Mappers.asset.get(entity).atlasName).findRegion(textureName));
+        if (assetsLoaded) {
+            // TODO: Check for whether assets are loaded in already and load them in if not
+            if (textureFamily.matches(entity)) {
+                for (String textureName : Mappers.asset.get(entity).textureName) {
+                    Mappers.texture.get(entity).textures.put(textureName, atlases.get(Mappers.asset.get(entity).atlasName).findRegion(textureName));
+                }
+                Mappers.asset.get(entity).handledAssets = true;
             }
         }
         if (mapFamily.matches(entity)) {
