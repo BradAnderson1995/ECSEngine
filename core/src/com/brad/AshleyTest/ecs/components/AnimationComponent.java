@@ -2,7 +2,6 @@ package com.brad.AshleyTest.ecs.components;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ArrayMap;
 import com.badlogic.gdx.utils.Pool;
 
@@ -12,7 +11,7 @@ import com.badlogic.gdx.utils.Pool;
 public class AnimationComponent extends Component implements Pool.Poolable
 {
     //    public ArrayMap<String, Animation> animations = new ArrayMap<String, Animation>();
-    public ArrayMap<String, Array<String>> animations = new ArrayMap<String, Array<String>>();
+    public ArrayMap<String, Animation> animations = new ArrayMap<String, Animation>();
     public Animation animation = null;
     public String currentAnimation;
     public boolean startNewAnimation = false;

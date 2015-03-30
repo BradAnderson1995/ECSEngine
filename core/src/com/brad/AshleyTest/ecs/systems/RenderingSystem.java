@@ -42,6 +42,7 @@ public class RenderingSystem extends SortedIteratingSystem
     @Override
     public void update(float delta) {
         // Clear the screen (necessary for performance)
+        Gdx.app.log("RenderSystem", "Update");
         camera.update();
         camera.position.set(160, 8 * 15 + 8, 0);
 //        camera.position.set(viewport.getScreenX()/2f, viewport.getScreenY()/2f, 0);
@@ -71,7 +72,7 @@ public class RenderingSystem extends SortedIteratingSystem
         if (Mappers.texture.get(entity).region != null) {
 //            Gdx.app.log("RenderingSystem", "Drawing");
             // Draw the entity
-            Gdx.app.log(Float.toString(transform.pos.x) + " " + Float.toString(transform.pos.y), Float.toString(camera.position.x) + " " + Float.toString(camera.position.y));
+//            Gdx.app.log(Float.toString(transform.pos.x) + " " + Float.toString(transform.pos.y), Float.toString(camera.position.x) + " " + Float.toString(camera.position.y));
 //            batch.draw(Mappers.texture.get(entity).region, transform.pos.x, transform.pos.y,
 //                    transform.origin.x, transform.origin.y, transform.size.x, transform.size.y,
 //                    transform.scale.x, transform.scale.y, transform.rotation, transform.clockwise);

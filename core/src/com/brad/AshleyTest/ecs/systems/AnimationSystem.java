@@ -4,8 +4,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.Array;
 import com.brad.AshleyTest.ecs.Mappers;
 import com.brad.AshleyTest.ecs.components.AnimationComponent;
 import com.brad.AshleyTest.ecs.components.TextureComponent;
@@ -28,11 +26,12 @@ public class AnimationSystem extends IteratingSystem
             animation.stateTime = 0.f;
             animation.animationRunning = true;
             animation.startNewAnimation = false;
-            Array<TextureRegion> textures = new Array<TextureRegion>();
-            for (String region : animation.animations.get(animation.currentAnimation)) {
-                textures.add(texture.textures.get(region));
-            }
-            animation.animation = new Animation(5f / 60, textures, Animation.PlayMode.LOOP_PINGPONG);
+//            Array<TextureRegion> textures = new Array<TextureRegion>();
+//            for (String region : animation.animations.get(animation.currentAnimation)) {
+//                textures.add(texture.textures.get(region));
+//            }
+//            animation.animation = new Animation(5f / 60, textures, Animation.PlayMode.LOOP_PINGPONG);
+            animation.animation = animation.animations.get(animation.currentAnimation);
         } else if (animation.animationRunning) {
             animation.stateTime += deltaTime;
         }

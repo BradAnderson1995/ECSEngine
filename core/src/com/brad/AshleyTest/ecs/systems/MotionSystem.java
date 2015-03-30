@@ -2,6 +2,7 @@ package com.brad.AshleyTest.ecs.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
+import com.badlogic.gdx.Gdx;
 import com.brad.AshleyTest.ecs.Mappers;
 import com.brad.AshleyTest.ecs.basesystems.IteratingLogicSystem;
 import com.brad.AshleyTest.ecs.components.CameraControlComponent;
@@ -17,6 +18,12 @@ public class MotionSystem extends IteratingLogicSystem
 
     public MotionSystem(int tps) {
         super(Family.all(TransformComponent.class, MotionComponent.class).get(), 1.f / tps);
+    }
+
+    @Override
+    protected void updateInterval() {
+        super.updateInterval();
+        Gdx.app.log("MotionSystem", "Update");
     }
 
     @Override

@@ -12,16 +12,19 @@ import com.brad.AshleyTest.ecs.components.AssetComponent;
 import com.brad.AshleyTest.ecs.systems.AssetSystem;
 import com.brad.AshleyTest.framework.config.ControlSettings;
 
+import aurelienribon.tweenengine.TweenManager;
+
 public class AshleyTest extends Game
 {
     public static final String TITLE = "AshleyTest";
     public static final int WIDTH = 640, HEIGHT = 480;
-    public ControlSettings controls;
-    public AssetManager manager;
-    public InputMultiplexer input;
-    public SpriteBatch batch;
-    public PooledEngine engine;
-    public AssetSystem assetSystem;
+    public static ControlSettings controls;
+    public static AssetManager manager;
+    public static InputMultiplexer input;
+    public static SpriteBatch batch;
+    public static PooledEngine engine;
+    public static AssetSystem assetSystem;
+    public static TweenManager tweenManager;
 
     @Override
     public void create() {
@@ -31,6 +34,7 @@ public class AshleyTest extends Game
         input = new InputMultiplexer();
         batch = new SpriteBatch();
         assetSystem = new AssetSystem(engine, manager);
+        tweenManager = new TweenManager();
         engine.addSystem(assetSystem);
         engine.addEntityListener(Family.all(AssetComponent.class).get(), assetSystem);
         Gdx.input.setInputProcessor(input);

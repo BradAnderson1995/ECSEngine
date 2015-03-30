@@ -77,7 +77,8 @@ public class AssetSystem extends EntitySystem implements EntityListener, Disposa
             TextureComponent texture = Mappers.texture.get(entity);
             if (!Mappers.asset.get(entity).handledAssets) {
                 for (String textureName : Mappers.asset.get(entity).textureName) {
-                    texture.textures.put(textureName, atlases.get(Mappers.asset.get(entity).atlasName).findRegion(textureName));
+//                    texture.textures.put(textureName, atlases.get(Mappers.asset.get(entity).atlasName).findRegion(textureName));
+                    texture.textures.get(textureName).setRegion(atlases.get(Mappers.asset.get(entity).atlasName).findRegion(textureName));
                 }
                 Mappers.asset.get(entity).handledAssets = true;
             }
@@ -124,7 +125,8 @@ public class AssetSystem extends EntitySystem implements EntityListener, Disposa
             // TODO: Check for whether assets are loaded in already and load them in if not
             if (textureFamily.matches(entity)) {
                 for (String textureName : Mappers.asset.get(entity).textureName) {
-                    Mappers.texture.get(entity).textures.put(textureName, atlases.get(Mappers.asset.get(entity).atlasName).findRegion(textureName));
+//                    Mappers.texture.get(entity).textures.put(textureName, atlases.get(Mappers.asset.get(entity).atlasName).findRegion(textureName));
+                    Mappers.texture.get(entity).textures.get(textureName).setRegion(atlases.get(Mappers.asset.get(entity).atlasName).findRegion(textureName));
                 }
                 Mappers.asset.get(entity).handledAssets = true;
             }

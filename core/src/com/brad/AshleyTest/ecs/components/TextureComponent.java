@@ -12,6 +12,7 @@ public class TextureComponent extends Component implements Pool.Poolable
 {
     public TextureRegion region = new TextureRegion();
     public ObjectMap<String, TextureRegion> textures = new ObjectMap<String, TextureRegion>();
+    public TextureRegion holder = new TextureRegion();
     public String frameString = null;
 
     @Override
