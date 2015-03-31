@@ -3,8 +3,6 @@ package com.brad.AshleyTest.ecs;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
@@ -23,7 +21,7 @@ import com.brad.AshleyTest.ecs.components.TransformComponent;
  */
 public class EntityFactory
 {
-    private PooledEngine engine;
+    public PooledEngine engine;
 
     public EntityFactory(PooledEngine engine) {
         this.engine = engine;
@@ -45,15 +43,15 @@ public class EntityFactory
         TransformComponent transform = engine.createComponent(TransformComponent.class);
         CameraControlComponent camera = engine.createComponent(CameraControlComponent.class);
         MotionComponent motion = engine.createComponent(MotionComponent.class);
-        transform.pos.set(10, 8, 0);
-        camera.camera = new OrthographicCamera();
+//        transform.pos.set(10, 8, 0);
+        camera.camera.position.set(320, 240, 1);
         entity.add(transform);
         entity.add(camera);
         entity.add(motion);
         return entity;
     }
 
-    public Entity createPlayerShip(AssetManager manager) {
+    public Entity createPlayerShip() {
         Entity entity = engine.createEntity();
         TransformComponent transform = engine.createComponent(TransformComponent.class);
         TextureComponent texture = engine.createComponent(TextureComponent.class);
@@ -62,12 +60,21 @@ public class EntityFactory
         PlayerShipControlComponent control = engine.createComponent(PlayerShipControlComponent.class);
         MotionComponent motion = engine.createComponent(MotionComponent.class);
 
-        transform.pos.set(304.f, 100.f, 1);
-        Gdx.app.log("Mario", Float.toString(transform.pos.x) + " " + Float.toString(transform.pos.y));
+        transform.pos.set(255.5f, 35.f, 1);
+        Gdx.app.log("Ship", Float.toString(transform.pos.x) + " " + Float.toString(transform.pos.y));
         assets.atlasName = "sprites/packed/game/game.atlas";
-        assets.textureName.add("mario0");
-        texture.textures.put("mario0", new TextureRegion());
-        texture.frameString = "mario0";
+        assets.textureName.add("Octopus-01");
+        assets.textureName.add("Octopus-02");
+        assets.textureName.add("Octopus-03");
+        texture.textures.put("Octopus-01", new TextureRegion());
+        texture.textures.put("Octopus-02", new TextureRegion());
+        texture.textures.put("Octopus-03", new TextureRegion());
+        texture.frameString = "Octopus-01";
+        Array<TextureRegion> blinkFrames = new Array<TextureRegion>();
+        blinkFrames.add(texture.textures.get("Octopus-02"));
+        blinkFrames.add(texture.textures.get("Octopus-03"));
+        Animation blink = new Animation(.1f, blinkFrames, Animation.PlayMode.LOOP_PINGPONG);
+        animation.animations.put("blink", blink);
 
         entity.add(transform);
         entity.add(control);
@@ -79,7 +86,26 @@ public class EntityFactory
         return entity;
     }
 
-    public Entity createMario(AssetManager manager) {
+    public Entity createBullet() {
+        Entity entity = engine.createEntity();
+        TransformComponent transform = engine.createComponent(TransformComponent.class);
+        TextureComponent texture = engine.createComponent(TextureComponent.class);
+        AssetComponent assets = engine.createComponent(AssetComponent.class);
+        MotionComponent motion = engine.createComponent(MotionComponent.class);
+        assets.atlasName = "sprites/packed/game/game.atlas";
+        assets.textureName.add("ink");
+        texture.textures.put("ink", new TextureRegion());
+        texture.frameString = "ink";
+
+        entity.add(transform);
+        entity.add(assets);
+        entity.add(texture);
+        entity.add(motion);
+
+        return entity;
+    }
+
+    public Entity createMario() {
         Entity entity = engine.createEntity();
         TransformComponent transform = engine.createComponent(TransformComponent.class);
         TextureComponent texture = engine.createComponent(TextureComponent.class);

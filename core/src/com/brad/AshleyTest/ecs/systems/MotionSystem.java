@@ -29,6 +29,10 @@ public class MotionSystem extends IteratingLogicSystem
     protected void processEntity(Entity entity) {
         TransformComponent transform = Mappers.transform.get(entity);
         MotionComponent motion = Mappers.motion.get(entity);
+        if (cameraControlFamily.matches(entity)) {
+            CameraControlComponent cameraControl = Mappers.cameraControl.get(entity);
+            transform.pos.set(cameraControl.camera.position);
+        }
         transform.pos.x += motion.vel.x;
         transform.pos.y += motion.vel.y;
         motion.vel.x += motion.accel.x;

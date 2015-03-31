@@ -32,10 +32,10 @@ public class CameraInputControllerSystem extends EntityControllerSystem
             } else if (input.equals("Down")) {
 //                transform.pos.y -= .1;
             } else if (input.equals("Left")) {
-                motion.vel.x = -1;
+                motion.vel.x = -10;
                 animating = true;
             } else if (input.equals("Right")) {
-                motion.vel.x = 1;
+                motion.vel.x = 1000;
                 animating = true;
             }
         }

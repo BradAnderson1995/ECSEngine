@@ -1,54 +1,110 @@
 
 game.png
-size: 64,64
+size: 512,128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 BigMario1
   rotate: false
-  xy: 2, 22
+  xy: 437, 60
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
+Octopus-01
+  rotate: false
+  xy: 2, 30
+  size: 129, 96
+  orig: 129, 96
+  offset: 0, 0
+  index: -1
+Octopus-02
+  rotate: false
+  xy: 133, 30
+  size: 129, 96
+  orig: 129, 96
+  offset: 0, 0
+  index: -1
+Octopus-03
+  rotate: false
+  xy: 264, 30
+  size: 129, 96
+  orig: 129, 96
+  offset: 0, 0
+  index: -1
+bubble
+  rotate: false
+  xy: 471, 109
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+ink
+  rotate: false
+  xy: 2, 2
+  size: 15, 26
+  orig: 15, 26
+  offset: 0, 0
+  index: -1
+jellyfish
+  rotate: false
+  xy: 395, 80
+  size: 40, 46
+  orig: 40, 46
+  offset: 0, 0
+  index: -1
+jellyfish-02
+  rotate: false
+  xy: 395, 32
+  size: 40, 46
+  orig: 40, 46
+  offset: 0, 0
+  index: -1
 mario-run0
   rotate: false
-  xy: 20, 38
+  xy: 437, 42
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 mario-run1
   rotate: false
-  xy: 20, 20
+  xy: 490, 110
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 mario-run2
   rotate: false
-  xy: 38, 38
+  xy: 37, 12
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 mario0
   rotate: false
-  xy: 2, 4
+  xy: 19, 12
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
+octopussay
+  rotate: false
+  xy: 437, 94
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 snakeNode
   rotate: false
-  xy: 38, 20
+  xy: 55, 12
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 target
   rotate: false
-  xy: 20, 2
+  xy: 73, 12
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

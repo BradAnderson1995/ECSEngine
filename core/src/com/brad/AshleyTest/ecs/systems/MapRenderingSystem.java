@@ -2,6 +2,7 @@ package com.brad.AshleyTest.ecs.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -37,12 +38,12 @@ public class MapRenderingSystem extends EntitySystem
     }
 
     public void setupRenderer(TiledMap map) {
-        renderer = new OrthogonalTiledMapRenderer(map, 1 / 16f, batch);
+        renderer = new OrthogonalTiledMapRenderer(map, batch);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, width, height);
 //        camera.position.x = 0;
 //        camera.position.y = 0;
-//        viewport = new FitViewport(30, 20, camera);
+//        viewport = new FitViewport(640, 480, camera);
 //        viewport.apply();
         setup = true;
     }
@@ -51,7 +52,9 @@ public class MapRenderingSystem extends EntitySystem
     public void update(float delta) {
         if (setup) {
             camera.update();
+            Gdx.app.log("MapRenderer", Float.toString(camera.position.x) + " " + Float.toString(camera.position.y));
             camera.position.set(cameraControl.camera.position);
+//            camera.position.set(320, 240, 1);
             // TODO: Figure out rotation
             renderer.setView(camera);
             // TODO: Handle blending

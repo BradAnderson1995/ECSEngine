@@ -43,7 +43,7 @@ public class EntityScreen extends AbstractScreen
         factory = new EntityFactory(engine);
         animationSystem = new AnimationSystem();
         cameraControlEntity = factory.createCameraControl();
-        mario = factory.createMario(game.manager);
+        mario = factory.createMario();
         engine.addEntity(cameraControlEntity);
         engine.addEntity(mario);
         renderPrepareSystem = new RenderPrepareSystem(game.batch);

@@ -17,6 +17,6 @@ public class CameraControlComponent extends Component implements Pool.Poolable
 
     @Override
     public void reset() {
-        camera = null;
+        camera = new OrthographicCamera();
     }
 }
