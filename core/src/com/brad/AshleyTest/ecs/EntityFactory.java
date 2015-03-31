@@ -73,7 +73,8 @@ public class EntityFactory
         Array<TextureRegion> blinkFrames = new Array<TextureRegion>();
         blinkFrames.add(texture.textures.get("Octopus-02"));
         blinkFrames.add(texture.textures.get("Octopus-03"));
-        Animation blink = new Animation(.1f, blinkFrames, Animation.PlayMode.LOOP_PINGPONG);
+        blinkFrames.add(texture.textures.get("Octopus-02"));
+        Animation blink = new Animation(.1f, blinkFrames, Animation.PlayMode.NORMAL);
         animation.animations.put("blink", blink);
 
         entity.add(transform);

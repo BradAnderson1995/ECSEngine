@@ -53,5 +53,10 @@ public class PlayerShipControlSystem extends EntityControllerSystem
                 factory.engine.addEntity(bullet);
             }
         }
+        if (!animation.animationRunning) {
+            if (Math.random() * 100 > 99.6) {
+                animation.startAnimation("blink", false);
+            }
+        }
     }
 }

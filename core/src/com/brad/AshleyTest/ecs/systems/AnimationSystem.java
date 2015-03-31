@@ -37,7 +37,11 @@ public class AnimationSystem extends IteratingSystem
         }
         if (animation.animationRunning) {
             Animation currentAnimation = animation.animation;
-            texture.region = currentAnimation.getKeyFrame(animation.stateTime, true);
+            if (currentAnimation.isAnimationFinished(animation.stateTime) && !animation.loop) {
+                animation.stopAnimation();
+            } else {
+                texture.region = currentAnimation.getKeyFrame(animation.stateTime, animation.loop);
+            }
         }
     }
 

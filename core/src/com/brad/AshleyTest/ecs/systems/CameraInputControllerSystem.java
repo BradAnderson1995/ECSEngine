@@ -46,9 +46,9 @@ public class CameraInputControllerSystem extends EntityControllerSystem
         }
         for (String input : controlsPending) {
             if (input.equals("Left")) {
-                animation.startAnimation("mario-run");
+                animation.startAnimation("mario-run", true);
             } else if (input.equals("Right")) {
-                animation.startAnimation("mario-run");
+                animation.startAnimation("mario-run", true);
             }
         }
     }

@@ -22,6 +22,7 @@ import com.brad.AshleyTest.ecs.components.AssetComponent;
 import com.brad.AshleyTest.ecs.components.MapComponent;
 import com.brad.AshleyTest.ecs.components.SoundComponent;
 import com.brad.AshleyTest.ecs.components.TextureComponent;
+import com.brad.AshleyTest.ecs.components.TransformComponent;
 import com.brad.AshleyTest.framework.screen.LoadingScreen;
 
 import java.util.HashMap;
@@ -41,8 +42,8 @@ public class AssetSystem extends EntitySystem implements EntityListener, Disposa
     AssetManager manager;
     Engine engine;
     //    private Family assetFamily = Family.all(AssetComponent.class).get();
-    private Family animationFamily = Family.all(AssetComponent.class, TextureComponent.class, AnimationComponent.class).get();
-    private Family textureFamily = Family.all(AssetComponent.class, TextureComponent.class).get();
+    private Family animationFamily = Family.all(AssetComponent.class, TextureComponent.class, AnimationComponent.class, TransformComponent.class).get();
+    private Family textureFamily = Family.all(AssetComponent.class, TextureComponent.class, TransformComponent.class).get();
     private Family mapFamily = Family.all(AssetComponent.class, MapComponent.class).get();
     private Family soundFamily = Family.all(AssetComponent.class, SoundComponent.class).get();
 
@@ -75,12 +76,13 @@ public class AssetSystem extends EntitySystem implements EntityListener, Disposa
     public void update(float delta) {
         for (Entity entity : engine.getEntitiesFor(textureFamily)) {
             TextureComponent texture = Mappers.texture.get(entity);
-            if (!Mappers.asset.get(entity).handledAssets) {
-                for (String textureName : Mappers.asset.get(entity).textureName) {
-//                    texture.textures.put(textureName, atlases.get(Mappers.asset.get(entity).atlasName).findRegion(textureName));
-                    texture.textures.get(textureName).setRegion(atlases.get(Mappers.asset.get(entity).atlasName).findRegion(textureName));
+            TransformComponent transform = Mappers.transform.get(entity);
+            AssetComponent assets = Mappers.asset.get(entity);
+            if (!assets.handledAssets) {
+                for (String textureName : assets.textureName) {
+                    texture.textures.get(textureName).setRegion(atlases.get(assets.atlasName).findRegion(textureName));
                 }
-                Mappers.asset.get(entity).handledAssets = true;
+                assets.handledAssets = true;
             }
             if (animationFamily.matches(entity)) {
                 if (!Mappers.animation.get(entity).animationRunning) {
@@ -88,6 +90,12 @@ public class AssetSystem extends EntitySystem implements EntityListener, Disposa
                 }
             } else {
                 texture.region = texture.textures.get(texture.frameString);
+            }
+            if (transform.autosize) {
+                transform.size.set(texture.region.getRegionWidth(), texture.region.getRegionHeight());
+            }
+            if (transform.autoCenterOrigin) {
+                transform.setCenterOrigin();
             }
         }
     }

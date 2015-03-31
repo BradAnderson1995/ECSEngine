@@ -16,6 +16,7 @@ public class AnimationComponent extends Component implements Pool.Poolable
     public String currentAnimation;
     public boolean startNewAnimation = false;
     public boolean animationRunning = false;
+    public boolean loop = false;
     public float stateTime = 0.f;
 
     public AnimationComponent() {
@@ -23,9 +24,10 @@ public class AnimationComponent extends Component implements Pool.Poolable
         currentAnimation = "";
     }
 
-    public void startAnimation(String animation) {
+    public void startAnimation(String animation, boolean loop) {
         currentAnimation = animation;
         startNewAnimation = true;
+        this.loop = loop;
     }
 
     public void stopAnimation() {
@@ -40,5 +42,6 @@ public class AnimationComponent extends Component implements Pool.Poolable
         startNewAnimation = false;
         animationRunning = false;
         stateTime = 0.f;
+        loop = false;
     }
 }

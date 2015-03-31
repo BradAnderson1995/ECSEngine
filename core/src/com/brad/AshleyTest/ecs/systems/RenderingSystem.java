@@ -74,10 +74,10 @@ public class RenderingSystem extends SortedIteratingSystem
 //            Gdx.app.log("RenderingSystem", "Drawing");
             // Draw the entity
 //            Gdx.app.log(Float.toString(transform.pos.x) + " " + Float.toString(transform.pos.y), Float.toString(camera.position.x) + " " + Float.toString(camera.position.y));
-//            batch.draw(Mappers.texture.get(entity).region, transform.pos.x, transform.pos.y,
-//                    transform.origin.x, transform.origin.y, transform.size.x, transform.size.y,
-//                    transform.scale.x, transform.scale.y, transform.rotation, transform.clockwise);
-            batch.draw(Mappers.texture.get(entity).region, transform.pos.x, transform.pos.y);
+            batch.draw(Mappers.texture.get(entity).region, transform.pos.x, transform.pos.y,
+                    transform.origin.x, transform.origin.y, transform.size.x, transform.size.y,
+                    transform.scale.x, transform.scale.y, transform.rotation);
+//            batch.draw(Mappers.texture.get(entity).region, transform.pos.x, transform.pos.y);
         }
     }
 }
