@@ -2,6 +2,7 @@ package com.brad.AshleyTest.ecs;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -13,6 +14,7 @@ import com.brad.AshleyTest.ecs.components.CameraControlComponent;
 import com.brad.AshleyTest.ecs.components.MapComponent;
 import com.brad.AshleyTest.ecs.components.MotionComponent;
 import com.brad.AshleyTest.ecs.components.PlayerControlComponent;
+import com.brad.AshleyTest.ecs.components.PlayerShipControlComponent;
 import com.brad.AshleyTest.ecs.components.TextureComponent;
 import com.brad.AshleyTest.ecs.components.TransformComponent;
 
@@ -48,6 +50,32 @@ public class EntityFactory
         entity.add(transform);
         entity.add(camera);
         entity.add(motion);
+        return entity;
+    }
+
+    public Entity createPlayerShip(AssetManager manager) {
+        Entity entity = engine.createEntity();
+        TransformComponent transform = engine.createComponent(TransformComponent.class);
+        TextureComponent texture = engine.createComponent(TextureComponent.class);
+        AssetComponent assets = engine.createComponent(AssetComponent.class);
+        AnimationComponent animation = engine.createComponent(AnimationComponent.class);
+        PlayerShipControlComponent control = engine.createComponent(PlayerShipControlComponent.class);
+        MotionComponent motion = engine.createComponent(MotionComponent.class);
+
+        transform.pos.set(304.f, 100.f, 1);
+        Gdx.app.log("Mario", Float.toString(transform.pos.x) + " " + Float.toString(transform.pos.y));
+        assets.atlasName = "sprites/packed/game/game.atlas";
+        assets.textureName.add("mario0");
+        texture.textures.put("mario0", new TextureRegion());
+        texture.frameString = "mario0";
+
+        entity.add(transform);
+        entity.add(control);
+        entity.add(animation);
+        entity.add(assets);
+        entity.add(texture);
+        entity.add(motion);
+
         return entity;
     }
 

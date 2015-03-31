@@ -7,7 +7,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.brad.AshleyTest.ecs.EntityScreen;
 import com.brad.AshleyTest.ecs.components.AssetComponent;
 import com.brad.AshleyTest.ecs.systems.AssetSystem;
 import com.brad.AshleyTest.framework.config.ControlSettings;
@@ -16,15 +15,15 @@ import aurelienribon.tweenengine.TweenManager;
 
 public class AshleyTest extends Game
 {
-    public static final String TITLE = "AshleyTest";
+    public static final String TITLE = "Space Invaders";
     public static final int WIDTH = 640, HEIGHT = 480;
-    public static ControlSettings controls;
-    public static AssetManager manager;
-    public static InputMultiplexer input;
-    public static SpriteBatch batch;
-    public static PooledEngine engine;
-    public static AssetSystem assetSystem;
-    public static TweenManager tweenManager;
+    public ControlSettings controls;
+    public AssetManager manager;
+    public InputMultiplexer input;
+    public SpriteBatch batch;
+    public PooledEngine engine;
+    public AssetSystem assetSystem;
+    public TweenManager tweenManager;
 
     @Override
     public void create() {
@@ -38,7 +37,7 @@ public class AshleyTest extends Game
         engine.addSystem(assetSystem);
         engine.addEntityListener(Family.all(AssetComponent.class).get(), assetSystem);
         Gdx.input.setInputProcessor(input);
-        setScreen(new EntityScreen(this, 60, 60, WIDTH, HEIGHT));
+        setScreen(new SpaceInvadersScreen(this, 60, 60, WIDTH, HEIGHT));
     }
 
     public void render() {
@@ -47,6 +46,7 @@ public class AshleyTest extends Game
 
     @Override
     public void dispose() {
+        batch.dispose();
         assetSystem.dispose();
         manager.dispose();
     }

@@ -35,17 +35,18 @@ public class RenderingSystem extends SortedIteratingSystem
         this.batch = batch;
         this.cameraControl = Mappers.cameraControl.get(control);
         camera = new OrthographicCamera();
-        viewport = new FitViewport(20 * 16, 15 * 16, camera);
+        viewport = new FitViewport(viewWidth, viewHeight, camera);
         viewport.apply(true);
     }
 
     @Override
     public void update(float delta) {
         // Clear the screen (necessary for performance)
-        Gdx.app.log("RenderSystem", "Update");
+//        Gdx.app.log("RenderSystem", "Update");
         camera.update();
-        camera.position.set(160, 8 * 15 + 8, 0);
-//        camera.position.set(viewport.getScreenX()/2f, viewport.getScreenY()/2f, 0);
+//        camera.position.set(viewport.getScreenWidth()/2, viewport.getScreenHeight()/2, 0);
+        camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
+        Gdx.app.log("RenderSystem", Float.toString(camera.position.x) + " " + Float.toString(camera.position.y));
 //        camera.position.set(cameraControl.camera.position);
 //        Gdx.gl.glClearColor(0, 0, 0, 1);
 //        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
