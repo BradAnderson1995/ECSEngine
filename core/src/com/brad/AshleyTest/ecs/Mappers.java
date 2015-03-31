@@ -5,6 +5,7 @@ import com.brad.AshleyTest.ecs.components.AnimationComponent;
 import com.brad.AshleyTest.ecs.components.AssetComponent;
 import com.brad.AshleyTest.ecs.components.CameraControlComponent;
 import com.brad.AshleyTest.ecs.components.CollisionComponent;
+import com.brad.AshleyTest.ecs.components.ExpireComponent;
 import com.brad.AshleyTest.ecs.components.HideComponent;
 import com.brad.AshleyTest.ecs.components.MapComponent;
 import com.brad.AshleyTest.ecs.components.MotionComponent;
@@ -27,4 +28,5 @@ public class Mappers
     public static final ComponentMapper<TextureComponent> texture = ComponentMapper.getFor(TextureComponent.class);
     public static final ComponentMapper<TransformComponent> transform = ComponentMapper.getFor(TransformComponent.class);
     public static final ComponentMapper<CameraControlComponent> cameraControl = ComponentMapper.getFor(CameraControlComponent.class);
+    public static final ComponentMapper<ExpireComponent> expire = ComponentMapper.getFor(ExpireComponent.class);
 }

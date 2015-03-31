@@ -9,6 +9,7 @@ import com.brad.AshleyTest.ecs.components.PlayerShipControlComponent;
 import com.brad.AshleyTest.ecs.systems.AnimationSystem;
 import com.brad.AshleyTest.ecs.systems.CameraControlSystem;
 import com.brad.AshleyTest.ecs.systems.CollisionSystem;
+import com.brad.AshleyTest.ecs.systems.ExpireSystem;
 import com.brad.AshleyTest.ecs.systems.MapRenderingSystem;
 import com.brad.AshleyTest.ecs.systems.MotionSystem;
 import com.brad.AshleyTest.ecs.systems.PlayerShipControlSystem;
@@ -30,6 +31,7 @@ public class SpaceInvadersScreen extends AbstractScreen
     private CameraControlSystem cameraControlSystem;
     private MapRenderingSystem mapRenderingSystem;
     private PlayerShipControlSystem playerShipControlSystem;
+    private ExpireSystem expireSystem;
     private Entity mapEntity;
     private Entity cameraControlEntity;
     private boolean addedMap = false;
@@ -52,6 +54,7 @@ public class SpaceInvadersScreen extends AbstractScreen
         collisionSystem = new CollisionSystem();
         cameraControlSystem = new CameraControlSystem();
         playerShipControlSystem = new PlayerShipControlSystem(Family.all(PlayerShipControlComponent.class).get(), game.controls, tps, factory);
+        expireSystem = new ExpireSystem(game.engine, tps);
         logger = new FPSLogger();
 
         engine.addSystem(animationSystem);
@@ -62,6 +65,7 @@ public class SpaceInvadersScreen extends AbstractScreen
         engine.addSystem(collisionSystem);
         engine.addSystem(cameraControlSystem);
         engine.addSystem(playerShipControlSystem);
+        engine.addSystem(expireSystem);
         game.input.addProcessor(playerShipControlSystem);
 
         game.assetSystem.addAtlas("sprites/packed/game/game.atlas");
@@ -97,6 +101,7 @@ public class SpaceInvadersScreen extends AbstractScreen
         engine.removeSystem(animationSystem);
         engine.removeSystem(cameraControlSystem);
         engine.removeSystem(playerShipControlSystem);
+        engine.removeSystem(expireSystem);
         game.input.removeProcessor(playerShipControlSystem);
     }
 }

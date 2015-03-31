@@ -2,7 +2,6 @@ package com.brad.AshleyTest.ecs.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -52,7 +51,7 @@ public class MapRenderingSystem extends EntitySystem
     public void update(float delta) {
         if (setup) {
             camera.update();
-            Gdx.app.log("MapRenderer", Float.toString(camera.position.x) + " " + Float.toString(camera.position.y));
+//            Gdx.app.log("MapRenderer", Float.toString(camera.position.x) + " " + Float.toString(camera.position.y));
             camera.position.set(cameraControl.camera.position);
 //            camera.position.set(320, 240, 1);
             // TODO: Figure out rotation

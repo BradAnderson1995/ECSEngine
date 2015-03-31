@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.brad.AshleyTest.ecs.components.AnimationComponent;
 import com.brad.AshleyTest.ecs.components.AssetComponent;
 import com.brad.AshleyTest.ecs.components.CameraControlComponent;
+import com.brad.AshleyTest.ecs.components.ExpireComponent;
 import com.brad.AshleyTest.ecs.components.MapComponent;
 import com.brad.AshleyTest.ecs.components.MotionComponent;
 import com.brad.AshleyTest.ecs.components.PlayerControlComponent;
@@ -93,15 +94,19 @@ public class EntityFactory
         TextureComponent texture = engine.createComponent(TextureComponent.class);
         AssetComponent assets = engine.createComponent(AssetComponent.class);
         MotionComponent motion = engine.createComponent(MotionComponent.class);
+        ExpireComponent expire = engine.createComponent(ExpireComponent.class);
         assets.atlasName = "sprites/packed/game/game.atlas";
         assets.textureName.add("ink");
         texture.textures.put("ink", new TextureRegion());
         texture.frameString = "ink";
+        transform.rotation = 180;
+        expire.lifetime = 100;
 
         entity.add(transform);
         entity.add(assets);
         entity.add(texture);
         entity.add(motion);
+        entity.add(expire);
 
         return entity;
     }

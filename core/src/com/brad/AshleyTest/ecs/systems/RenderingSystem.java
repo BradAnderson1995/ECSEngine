@@ -3,7 +3,6 @@ package com.brad.AshleyTest.ecs.systems;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.SortedIteratingSystem;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -46,7 +45,7 @@ public class RenderingSystem extends SortedIteratingSystem
         camera.update();
 //        camera.position.set(viewport.getScreenWidth()/2, viewport.getScreenHeight()/2, 0);
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
-        Gdx.app.log("RenderSystem", Float.toString(camera.position.x) + " " + Float.toString(camera.position.y));
+//        Gdx.app.log("RenderSystem", Float.toString(camera.position.x) + " " + Float.toString(camera.position.y));
 //        camera.position.set(cameraControl.camera.position);
 //        Gdx.gl.glClearColor(0, 0, 0, 1);
 //        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
