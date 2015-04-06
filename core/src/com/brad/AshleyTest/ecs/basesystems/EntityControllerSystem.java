@@ -62,7 +62,7 @@ public abstract class EntityControllerSystem extends IteratingLogicSystem implem
                     controlsPending.add(control.getKey());
                     Gdx.app.log("KeyDown", control.getKey());
                 }
-                return true;
+//                return true;
             }
         }
         return false;

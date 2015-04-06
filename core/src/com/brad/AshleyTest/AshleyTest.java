@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.box2d.Box2D;
 import com.brad.AshleyTest.ecs.components.AssetComponent;
 import com.brad.AshleyTest.ecs.systems.AssetSystem;
 import com.brad.AshleyTest.framework.config.ControlSettings;
@@ -27,12 +28,13 @@ public class AshleyTest extends Game
 
     @Override
     public void create() {
+        Box2D.init();
         engine = new PooledEngine();
         controls = new ControlSettings();
         manager = new AssetManager();
         input = new InputMultiplexer();
         batch = new SpriteBatch();
-        assetSystem = new AssetSystem(engine, manager);
+        assetSystem = new AssetSystem(engine, manager, 150.f);
         tweenManager = new TweenManager();
         engine.addSystem(assetSystem);
         engine.addEntityListener(Family.all(AssetComponent.class).get(), assetSystem);

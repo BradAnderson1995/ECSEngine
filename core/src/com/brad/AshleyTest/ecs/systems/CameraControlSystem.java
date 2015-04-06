@@ -17,6 +17,6 @@ public class CameraControlSystem extends IteratingSystem
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
-//        Mappers.motion.get(entity).vel.y = 1f;
+//        Mappers.motion.get(entity).vel.x = .01f;
     }
 }

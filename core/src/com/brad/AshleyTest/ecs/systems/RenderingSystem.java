@@ -6,6 +6,7 @@ import com.badlogic.ashley.systems.SortedIteratingSystem;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.brad.AshleyTest.ecs.Constants;
 import com.brad.AshleyTest.ecs.Mappers;
 import com.brad.AshleyTest.ecs.components.CameraControlComponent;
 import com.brad.AshleyTest.ecs.components.TextureComponent;
@@ -18,12 +19,13 @@ import java.util.Comparator;
  */
 public class RenderingSystem extends SortedIteratingSystem
 {
+    private float scale;
     private SpriteBatch batch;
     private OrthographicCamera camera;
     private FitViewport viewport;
     private CameraControlComponent cameraControl;
 
-    public RenderingSystem(SpriteBatch batch, Entity control, int viewWidth, int viewHeight) {
+    public RenderingSystem(SpriteBatch batch, Entity control, float viewWidth, float viewHeight) {
         super(Family.all(TextureComponent.class, TransformComponent.class).get(), new Comparator<Entity>()
         {
             @Override
@@ -35,16 +37,20 @@ public class RenderingSystem extends SortedIteratingSystem
         this.cameraControl = Mappers.cameraControl.get(control);
         camera = new OrthographicCamera();
         viewport = new FitViewport(viewWidth, viewHeight, camera);
-        viewport.apply(true);
+        viewport.apply();
+        this.scale = Constants.SCALE;
     }
 
     @Override
     public void update(float delta) {
         // Clear the screen (necessary for performance)
 //        Gdx.app.log("RenderSystem", "Update");
+//        camera.setToOrtho(false, 4f, 3f);
+//        viewport.setCamera(camera);
         camera.update();
 //        camera.position.set(viewport.getScreenWidth()/2, viewport.getScreenHeight()/2, 0);
-        camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
+//        camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
+        camera.position.set(cameraControl.camera.position);
 //        Gdx.app.log("RenderSystem", Float.toString(camera.position.x) + " " + Float.toString(camera.position.y));
 //        camera.position.set(cameraControl.camera.position);
 //        Gdx.gl.glClearColor(0, 0, 0, 1);

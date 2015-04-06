@@ -28,6 +28,7 @@ public class ControlSettings
         setControl("Right", Input.Keys.D);
         setControl("Right", Input.Keys.RIGHT);
         setControl("Shoot", Input.Keys.SPACE);
+        setControl("PhysicsDebug", Input.Keys.B);
     }
 
     public void setControl(String key, int newKey) {

@@ -19,7 +19,7 @@ public abstract class AbstractScreen implements Screen
     public AbstractScreen(AshleyTest game) {
         this.game = game;
         this.engine = game.engine;
-        inputSystem = new ScreenInputSystem(game.controls);
+        inputSystem = new ScreenInputSystem(game.controls, engine);
         engine.addSystem(inputSystem);
     }
 
@@ -33,7 +33,8 @@ public abstract class AbstractScreen implements Screen
 
     @Override
     public void show() {
-        game.input.addProcessor(inputSystem.getHandler());
+//        game.input.addProcessor(inputSystem.getHandler());
+        game.input.addProcessor(inputSystem);
         if (!loadedAssets) {
             LoadingScreen loadingScreen = new LoadingScreen(game, this);
             game.assetSystem.loadAssets(loadingScreen);
@@ -47,7 +48,7 @@ public abstract class AbstractScreen implements Screen
 
     @Override
     public void hide() {
-        game.input.removeProcessor(inputSystem.getHandler());
+        game.input.removeProcessor(inputSystem);
     }
 
     @Override

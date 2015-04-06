@@ -41,13 +41,14 @@ public class AssetSystem extends EntitySystem implements EntityListener, Disposa
     HashMap<String, BitmapFont> fonts;
     AssetManager manager;
     Engine engine;
+    float scale;
     //    private Family assetFamily = Family.all(AssetComponent.class).get();
     private Family animationFamily = Family.all(AssetComponent.class, TextureComponent.class, AnimationComponent.class, TransformComponent.class).get();
     private Family textureFamily = Family.all(AssetComponent.class, TextureComponent.class, TransformComponent.class).get();
     private Family mapFamily = Family.all(AssetComponent.class, MapComponent.class).get();
     private Family soundFamily = Family.all(AssetComponent.class, SoundComponent.class).get();
 
-    public AssetSystem(Engine engine, AssetManager manager) {
+    public AssetSystem(Engine engine, AssetManager manager, float scale) {
         super();
         this.manager = manager;
         this.engine = engine;
@@ -57,6 +58,7 @@ public class AssetSystem extends EntitySystem implements EntityListener, Disposa
         this.sounds = new HashMap<String, Sound>();
         this.music = new HashMap<String, Music>();
         this.fonts = new HashMap<String, BitmapFont>();
+        this.scale = scale;
         manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
     }
 
@@ -92,7 +94,8 @@ public class AssetSystem extends EntitySystem implements EntityListener, Disposa
                 texture.region = texture.textures.get(texture.frameString);
             }
             if (transform.autosize) {
-                transform.size.set(texture.region.getRegionWidth(), texture.region.getRegionHeight());
+                transform.imageSize.set(texture.region.getRegionWidth(), texture.region.getRegionHeight());
+                transform.size.set(transform.imageSize.x / scale, transform.imageSize.y / scale);
             }
             if (transform.autoCenterOrigin) {
                 transform.setCenterOrigin();

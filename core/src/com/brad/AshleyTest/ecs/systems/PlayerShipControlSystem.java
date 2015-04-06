@@ -2,6 +2,7 @@ package com.brad.AshleyTest.ecs.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
+import com.brad.AshleyTest.ecs.Constants;
 import com.brad.AshleyTest.ecs.EntityFactory;
 import com.brad.AshleyTest.ecs.Mappers;
 import com.brad.AshleyTest.ecs.basesystems.EntityControllerSystem;
@@ -18,8 +19,8 @@ public class PlayerShipControlSystem extends EntityControllerSystem
 {
     private EntityFactory factory;
 
-    public PlayerShipControlSystem(Family family, ControlSettings controls, int tps, EntityFactory factory) {
-        super(family, controls, tps);
+    public PlayerShipControlSystem(Family family, ControlSettings controls, EntityFactory factory) {
+        super(family, controls, Constants.TPS);
         this.factory = factory;
     }
 
@@ -33,10 +34,10 @@ public class PlayerShipControlSystem extends EntityControllerSystem
         boolean moving = false;
         for (String input : controlsHeld) {
             if (input.equals("Left")) {
-                motion.vel.x = -5;
+                motion.vel.x = -.02f;
                 moving = true;
             } else if (input.equals("Right")) {
-                motion.vel.x = 5;
+                motion.vel.x = .02f;
                 moving = true;
             }
         }
@@ -48,8 +49,9 @@ public class PlayerShipControlSystem extends EntityControllerSystem
                 Entity bullet = factory.createBullet();
                 // TODO: Add transform logic to determine size
                 Mappers.transform.get(bullet).pos.set(transform.pos);
-                Mappers.transform.get(bullet).pos.add(texture.region.getRegionWidth() / 2f - 7.5f, texture.region.getRegionHeight(), 1);
-                Mappers.motion.get(bullet).vel.y = 5.f;
+                Mappers.transform.get(bullet).pos.add(transform.size.x / 2f - 7.5f / Constants.SCALE,
+                        transform.size.y, 1);
+                Mappers.motion.get(bullet).vel.y = .05f;
                 factory.engine.addEntity(bullet);
             }
         }
@@ -58,5 +60,6 @@ public class PlayerShipControlSystem extends EntityControllerSystem
                 animation.startAnimation("blink", false);
             }
         }
+//        if (Mappers.collision.get(entity).)
     }
 }

@@ -34,6 +34,7 @@ public class LoadingScreen implements Screen
     @Override
     public void show() {
         Image loadSprite = new Image(atlas.findRegion("loadScreen"));
+        loadSprite.setPosition(160f, 80f);
         stage = new Stage();
 
         stage.addActor(loadSprite);

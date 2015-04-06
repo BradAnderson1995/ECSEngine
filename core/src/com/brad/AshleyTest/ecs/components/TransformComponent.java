@@ -13,6 +13,7 @@ public class TransformComponent extends Component implements Pool.Poolable
     public Vector3 pos = new Vector3(0.f, 0.f, 0.f);
     public Vector2 scale = new Vector2(1.f, 1.f);
     public Vector2 size = new Vector2(16.f, 16.f);
+    public Vector2 imageSize = new Vector2(16.f, 16.f);
     public Vector2 origin = new Vector2(0.f, 0.f);
     public float rotation = 0.f;
     public boolean autosize = true;
@@ -29,6 +30,7 @@ public class TransformComponent extends Component implements Pool.Poolable
         scale.set(1.f, 1.f);
         rotation = 0.f;
         size.set(16.f, 16.f);
+        imageSize.set(16.f, 16.f);
         origin.set(0.f, 0.f);
         autosize = true;
         autoCenterOrigin = true;

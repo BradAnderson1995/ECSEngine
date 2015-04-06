@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.brad.AshleyTest.ecs.components.AnimationComponent;
 import com.brad.AshleyTest.ecs.components.AssetComponent;
 import com.brad.AshleyTest.ecs.components.CameraControlComponent;
+import com.brad.AshleyTest.ecs.components.CollisionComponent;
 import com.brad.AshleyTest.ecs.components.ExpireComponent;
 import com.brad.AshleyTest.ecs.components.MapComponent;
 import com.brad.AshleyTest.ecs.components.MotionComponent;
@@ -45,7 +46,7 @@ public class EntityFactory
         CameraControlComponent camera = engine.createComponent(CameraControlComponent.class);
         MotionComponent motion = engine.createComponent(MotionComponent.class);
 //        transform.pos.set(10, 8, 0);
-        camera.camera.position.set(320, 240, 1);
+        camera.camera.position.set(2, 1.5f, 1);
         entity.add(transform);
         entity.add(camera);
         entity.add(motion);
@@ -60,8 +61,9 @@ public class EntityFactory
         AnimationComponent animation = engine.createComponent(AnimationComponent.class);
         PlayerShipControlComponent control = engine.createComponent(PlayerShipControlComponent.class);
         MotionComponent motion = engine.createComponent(MotionComponent.class);
+        CollisionComponent collision = engine.createComponent(CollisionComponent.class);
 
-        transform.pos.set(255.5f, 35.f, 1);
+        transform.pos.set(1.75f, .3f, 1);
         Gdx.app.log("Ship", Float.toString(transform.pos.x) + " " + Float.toString(transform.pos.y));
         assets.atlasName = "sprites/packed/game/game.atlas";
         assets.textureName.add("Octopus-01");
@@ -84,6 +86,7 @@ public class EntityFactory
         entity.add(assets);
         entity.add(texture);
         entity.add(motion);
+        entity.add(collision);
 
         return entity;
     }
@@ -95,19 +98,30 @@ public class EntityFactory
         AssetComponent assets = engine.createComponent(AssetComponent.class);
         MotionComponent motion = engine.createComponent(MotionComponent.class);
         ExpireComponent expire = engine.createComponent(ExpireComponent.class);
+        CollisionComponent collision = engine.createComponent(CollisionComponent.class);
+
         assets.atlasName = "sprites/packed/game/game.atlas";
         assets.textureName.add("ink");
         texture.textures.put("ink", new TextureRegion());
         texture.frameString = "ink";
         transform.rotation = 180;
         expire.lifetime = 100;
+//        motion.accel.y = -10f/60;
 
         entity.add(transform);
         entity.add(assets);
         entity.add(texture);
         entity.add(motion);
         entity.add(expire);
+        entity.add(collision);
 
+        return entity;
+    }
+
+    public Entity createJelly() {
+        Entity entity = engine.createEntity();
+
+        TransformComponent transform = engine.createComponent(TransformComponent.class);
         return entity;
     }
 
@@ -119,7 +133,7 @@ public class EntityFactory
         AnimationComponent animation = engine.createComponent(AnimationComponent.class);
         MotionComponent motion = engine.createComponent(MotionComponent.class);
         PlayerControlComponent control = engine.createComponent(PlayerControlComponent.class);
-        transform.pos.set(16.f, 32.f, 1);
+        transform.pos.set(3.f, 1.f, 1);
         assets.atlasName = "sprites/packed/game/game.atlas";
         assets.textureName.add("mario0");
         assets.textureName.add("mario-run0");

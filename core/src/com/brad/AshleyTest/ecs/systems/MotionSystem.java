@@ -2,6 +2,7 @@ package com.brad.AshleyTest.ecs.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
+import com.badlogic.gdx.physics.box2d.World;
 import com.brad.AshleyTest.ecs.Mappers;
 import com.brad.AshleyTest.ecs.basesystems.IteratingLogicSystem;
 import com.brad.AshleyTest.ecs.components.CameraControlComponent;
@@ -14,9 +15,11 @@ import com.brad.AshleyTest.ecs.components.TransformComponent;
 public class MotionSystem extends IteratingLogicSystem
 {
     Family cameraControlFamily = Family.all(TransformComponent.class, MotionComponent.class, CameraControlComponent.class).get();
+    World world;
 
-    public MotionSystem(int tps) {
+    public MotionSystem(int tps, World world) {
         super(Family.all(TransformComponent.class, MotionComponent.class).get(), 1.f / tps);
+        this.world = world;
     }
 
     @Override
