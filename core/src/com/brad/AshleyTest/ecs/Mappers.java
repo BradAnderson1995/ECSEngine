@@ -5,11 +5,14 @@ import com.brad.AshleyTest.ecs.components.AnimationComponent;
 import com.brad.AshleyTest.ecs.components.AssetComponent;
 import com.brad.AshleyTest.ecs.components.CameraControlComponent;
 import com.brad.AshleyTest.ecs.components.CollisionComponent;
+import com.brad.AshleyTest.ecs.components.DynamicBodyComponent;
 import com.brad.AshleyTest.ecs.components.ExpireComponent;
 import com.brad.AshleyTest.ecs.components.HideComponent;
+import com.brad.AshleyTest.ecs.components.KinematicBodyComponent;
 import com.brad.AshleyTest.ecs.components.MapComponent;
 import com.brad.AshleyTest.ecs.components.MotionComponent;
 import com.brad.AshleyTest.ecs.components.NoBlendComponent;
+import com.brad.AshleyTest.ecs.components.StaticBodyComponent;
 import com.brad.AshleyTest.ecs.components.TextureComponent;
 import com.brad.AshleyTest.ecs.components.TransformComponent;
 
@@ -29,4 +32,7 @@ public class Mappers
     public static final ComponentMapper<TransformComponent> transform = ComponentMapper.getFor(TransformComponent.class);
     public static final ComponentMapper<CameraControlComponent> cameraControl = ComponentMapper.getFor(CameraControlComponent.class);
     public static final ComponentMapper<ExpireComponent> expire = ComponentMapper.getFor(ExpireComponent.class);
+    public static final ComponentMapper<DynamicBodyComponent> dynamicBody = ComponentMapper.getFor(DynamicBodyComponent.class);
+    public static final ComponentMapper<StaticBodyComponent> staticBody = ComponentMapper.getFor(StaticBodyComponent.class);
+    public static final ComponentMapper<KinematicBodyComponent> kinematicBody = ComponentMapper.getFor(KinematicBodyComponent.class);
 }

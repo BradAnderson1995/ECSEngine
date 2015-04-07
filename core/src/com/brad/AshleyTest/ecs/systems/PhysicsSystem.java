@@ -5,7 +5,9 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.physics.box2d.World;
 import com.brad.AshleyTest.ecs.Constants;
 import com.brad.AshleyTest.ecs.basesystems.IteratingLogicSystem;
-import com.brad.AshleyTest.ecs.components.PhysicsComponent;
+import com.brad.AshleyTest.ecs.components.DynamicBodyComponent;
+import com.brad.AshleyTest.ecs.components.KinematicBodyComponent;
+import com.brad.AshleyTest.ecs.components.StaticBodyComponent;
 import com.brad.AshleyTest.ecs.components.TransformComponent;
 
 /**
@@ -16,7 +18,7 @@ public class PhysicsSystem extends IteratingLogicSystem
     World world;
 
     public PhysicsSystem(World world) {
-        super(Family.all(PhysicsComponent.class, TransformComponent.class).get(), Constants.TPS);
+        super(Family.all(TransformComponent.class).one(DynamicBodyComponent.class, StaticBodyComponent.class, KinematicBodyComponent.class).get(), Constants.TPS);
         this.world = world;
     }
 

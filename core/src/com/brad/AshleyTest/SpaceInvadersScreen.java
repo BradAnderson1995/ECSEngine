@@ -60,8 +60,8 @@ public class SpaceInvadersScreen extends AbstractScreen
         mapRenderingSystem = new MapRenderingSystem(game.batch, cameraControlEntity, 4f, 3f);
         physicsDebugRenderingSystem = new PhysicsDebugRenderingSystem(cameraControlEntity, world, 4f, 3f);
         physicsDebugRenderingSystem.setProcessing(false);
-        motionSystem = new MotionSystem(tps, world);
-        collisionSystem = new CollisionSystem(tps, world);
+//        motionSystem = new MotionSystem(tps, world);
+//        collisionSystem = new CollisionSystem(tps, world);
         physicsSystem = new PhysicsSystem(world);
         cameraControlSystem = new CameraControlSystem();
         playerShipControlSystem = new PlayerShipControlSystem(Family.all(PlayerShipControlComponent.class).get(), game.controls, factory);
@@ -73,8 +73,8 @@ public class SpaceInvadersScreen extends AbstractScreen
         engine.addSystem(mapRenderingSystem);
         engine.addSystem(renderingSystem);
         engine.addSystem(physicsDebugRenderingSystem);
-        engine.addSystem(motionSystem);
-        engine.addSystem(collisionSystem);
+//        engine.addSystem(motionSystem);
+//        engine.addSystem(collisionSystem);
         engine.addSystem(physicsSystem);
         engine.addSystem(cameraControlSystem);
         engine.addSystem(playerShipControlSystem);
@@ -109,8 +109,8 @@ public class SpaceInvadersScreen extends AbstractScreen
         engine.removeSystem(mapRenderingSystem);
         engine.removeSystem(renderPrepareSystem);
         engine.removeSystem(renderingSystem);
-        engine.removeSystem(motionSystem);
-        engine.removeSystem(collisionSystem);
+//        engine.removeSystem(motionSystem);
+//        engine.removeSystem(collisionSystem);
         engine.removeSystem(physicsSystem);
         engine.removeSystem(animationSystem);
         engine.removeSystem(cameraControlSystem);
