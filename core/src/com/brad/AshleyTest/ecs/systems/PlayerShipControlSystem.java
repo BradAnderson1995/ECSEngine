@@ -2,12 +2,13 @@ package com.brad.AshleyTest.ecs.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
+import com.badlogic.gdx.Gdx;
 import com.brad.AshleyTest.ecs.Constants;
 import com.brad.AshleyTest.ecs.EntityFactory;
 import com.brad.AshleyTest.ecs.Mappers;
 import com.brad.AshleyTest.ecs.basesystems.EntityControllerSystem;
 import com.brad.AshleyTest.ecs.components.AnimationComponent;
-import com.brad.AshleyTest.ecs.components.MotionComponent;
+import com.brad.AshleyTest.ecs.components.KinematicBodyComponent;
 import com.brad.AshleyTest.ecs.components.TextureComponent;
 import com.brad.AshleyTest.ecs.components.TransformComponent;
 import com.brad.AshleyTest.framework.config.ControlSettings;
@@ -27,31 +28,44 @@ public class PlayerShipControlSystem extends EntityControllerSystem
     @Override
     protected void processEntity(Entity entity) {
         AnimationComponent animation = Mappers.animation.get(entity);
-        MotionComponent motion = Mappers.motion.get(entity);
+//        MotionComponent motion = Mappers.motion.get(entity);
+        KinematicBodyComponent body = Mappers.kinematicBody.get(entity);
         TransformComponent transform = Mappers.transform.get(entity);
         TextureComponent texture = Mappers.texture.get(entity);
+//        Gdx.app.log("ShipControl", "Processing");
 
         boolean moving = false;
         for (String input : controlsHeld) {
             if (input.equals("Left")) {
-                motion.vel.x = -.02f;
+//                motion.vel.x = -.02f;
+//                body.body.setLinearVelocity(-.02f, 0);
+                body.body.setLinearVelocity(-2f, 0);
+//                Gdx.app.log("ShipControl", "Move left");
                 moving = true;
             } else if (input.equals("Right")) {
-                motion.vel.x = .02f;
+//                motion.vel.x = .02f;
+//                body.body.setLinearVelocity(.02f, 0);
+                body.body.setLinearVelocity(2f, 0);
+//                Gdx.app.log("ShipControl", Float.toString(body.body.getLinearVelocity().x));
                 moving = true;
             }
         }
         if (!moving) {
-            motion.vel.x = 0;
+//            motion.vel.x = 0;
+            body.body.setLinearVelocity(0, 0);
+            Gdx.app.log("ShipControl", "Stop");
         }
         for (String input : controlsPending) {
             if (input.equals("Shoot")) {
                 Entity bullet = factory.createBullet();
                 // TODO: Add transform logic to determine size
-                Mappers.transform.get(bullet).pos.set(transform.pos);
-                Mappers.transform.get(bullet).pos.add(transform.size.x / 2f - 7.5f / Constants.SCALE,
-                        transform.size.y, 1);
-                Mappers.motion.get(bullet).vel.y = .05f;
+//                Mappers.transform.get(bullet).pos.set(transform.pos);
+//                Mappers.transform.get(bullet).pos.add(transform.size.x / 2f - 7.5f / Constants.SCALE,
+//                        transform.size.y, 1);
+//                Mappers.motion.get(bullet).vel.y = .05f;
+                Mappers.dynamicBody.get(bullet).body.setTransform(body.body.getPosition().x + transform.size.x / 2f - 7.5f / Constants.SCALE,
+                        body.body.getPosition().y + transform.size.y / 2f - 7.5f / Constants.SCALE, 0);
+                Mappers.dynamicBody.get(bullet).body.setLinearVelocity(0, 3f);
                 factory.engine.addEntity(bullet);
             }
         }

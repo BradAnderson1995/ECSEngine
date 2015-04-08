@@ -21,11 +21,16 @@ public class KinematicBodyComponent extends Component implements Pool.Poolable
     public Body body;
     public Fixture fixture;
     public Entity entity;
+    public float density = 0f;
+    public float friction = 0f;
+    public float restitution = 0f;
+    public boolean autoCollisionBox = true;
+    public boolean updateCollisions = true;
 
-    public KinematicBodyComponent(Entity entity) {
+    // TODO: Create entity setter
+    public KinematicBodyComponent() {
         bodyDef.type = BodyDef.BodyType.KinematicBody;
         bodyDef.position.set(0, 0);
-        this.entity = entity;
     }
 
     public void makeBody(World world) {

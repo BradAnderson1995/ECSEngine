@@ -5,12 +5,14 @@ import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.brad.AshleyTest.ecs.components.AnimationComponent;
 import com.brad.AshleyTest.ecs.components.AssetComponent;
 import com.brad.AshleyTest.ecs.components.CameraControlComponent;
-import com.brad.AshleyTest.ecs.components.CollisionComponent;
+import com.brad.AshleyTest.ecs.components.DynamicBodyComponent;
 import com.brad.AshleyTest.ecs.components.ExpireComponent;
+import com.brad.AshleyTest.ecs.components.KinematicBodyComponent;
 import com.brad.AshleyTest.ecs.components.MapComponent;
 import com.brad.AshleyTest.ecs.components.MotionComponent;
 import com.brad.AshleyTest.ecs.components.PlayerControlComponent;
@@ -24,9 +26,11 @@ import com.brad.AshleyTest.ecs.components.TransformComponent;
 public class EntityFactory
 {
     public PooledEngine engine;
+    public World world;
 
-    public EntityFactory(PooledEngine engine) {
+    public EntityFactory(PooledEngine engine, World world) {
         this.engine = engine;
+        this.world = world;
     }
 
     public Entity createMap(String mapName) {
@@ -60,10 +64,14 @@ public class EntityFactory
         AssetComponent assets = engine.createComponent(AssetComponent.class);
         AnimationComponent animation = engine.createComponent(AnimationComponent.class);
         PlayerShipControlComponent control = engine.createComponent(PlayerShipControlComponent.class);
-        MotionComponent motion = engine.createComponent(MotionComponent.class);
-        CollisionComponent collision = engine.createComponent(CollisionComponent.class);
+//        MotionComponent motion = engine.createComponent(MotionComponent.class);
+//        CollisionComponent collision = engine.createComponent(CollisionComponent.class);
+        KinematicBodyComponent body = engine.createComponent(KinematicBodyComponent.class);
 
-        transform.pos.set(1.75f, .3f, 1);
+//        transform.pos.set(1.75f, .3f, 1);
+        body.bodyDef.position.set(1.75f, .3f);
+        body.makeBody(world);
+        transform.pos.z = 1;
         Gdx.app.log("Ship", Float.toString(transform.pos.x) + " " + Float.toString(transform.pos.y));
         assets.atlasName = "sprites/packed/game/game.atlas";
         assets.textureName.add("Octopus-01");
@@ -85,8 +93,9 @@ public class EntityFactory
         entity.add(animation);
         entity.add(assets);
         entity.add(texture);
-        entity.add(motion);
-        entity.add(collision);
+        entity.add(body);
+//        entity.add(motion);
+//        entity.add(collision);
 
         return entity;
     }
@@ -96,10 +105,12 @@ public class EntityFactory
         TransformComponent transform = engine.createComponent(TransformComponent.class);
         TextureComponent texture = engine.createComponent(TextureComponent.class);
         AssetComponent assets = engine.createComponent(AssetComponent.class);
-        MotionComponent motion = engine.createComponent(MotionComponent.class);
+        DynamicBodyComponent body = engine.createComponent(DynamicBodyComponent.class);
+//        MotionComponent motion = engine.createComponent(MotionComponent.class);
         ExpireComponent expire = engine.createComponent(ExpireComponent.class);
-        CollisionComponent collision = engine.createComponent(CollisionComponent.class);
+//        CollisionComponent collision = engine.createComponent(CollisionComponent.class);
 
+        body.makeBody(world);
         assets.atlasName = "sprites/packed/game/game.atlas";
         assets.textureName.add("ink");
         texture.textures.put("ink", new TextureRegion());
@@ -111,9 +122,10 @@ public class EntityFactory
         entity.add(transform);
         entity.add(assets);
         entity.add(texture);
-        entity.add(motion);
+//        entity.add(motion);
         entity.add(expire);
-        entity.add(collision);
+//        entity.add(collision);
+        entity.add(body);
 
         return entity;
     }

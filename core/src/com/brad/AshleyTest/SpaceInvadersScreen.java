@@ -47,7 +47,7 @@ public class SpaceInvadersScreen extends AbstractScreen
     public SpaceInvadersScreen(AshleyTest game, int tps, int maxFPS, int xWidth, int yHeight) {
         super(game);
         world = new World(new Vector2(0, 0), true);
-        factory = new EntityFactory(engine);
+        factory = new EntityFactory(engine, world);
         animationSystem = new AnimationSystem();
         cameraControlEntity = factory.createCameraControl();
         Entity playerShip = factory.createPlayerShip();

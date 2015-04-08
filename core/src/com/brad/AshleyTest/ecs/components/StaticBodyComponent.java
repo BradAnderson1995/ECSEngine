@@ -21,11 +21,15 @@ public class StaticBodyComponent extends Component implements Pool.Poolable
     public Body body;
     public Fixture fixture;
     public Entity entity;
+    public float density = 0f;
+    public float friction = 0f;
+    public float restitution = 0f;
+    public boolean autoCollisionBox = true;
+    public boolean updateCollisions = true;
 
-    public StaticBodyComponent(Entity entity) {
+    public StaticBodyComponent() {
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set(0, 0);
-        this.entity = entity;
     }
 
     public void makeBody(World world) {
