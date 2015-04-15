@@ -62,5 +62,13 @@ public class StaticBodyComponent extends Component implements Pool.Poolable
     public void reset() {
         bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
+        fixtureDef = new FixtureDef();
+        body = null;
+        fixture = null;
+        density = 0f;
+        friction = 0f;
+        restitution = 0f;
+        autoCollisionBox = true;
+        updateCollisions = true;
     }
 }

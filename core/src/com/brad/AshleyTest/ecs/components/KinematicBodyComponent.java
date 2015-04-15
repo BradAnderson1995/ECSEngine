@@ -63,5 +63,13 @@ public class KinematicBodyComponent extends Component implements Pool.Poolable
     public void reset() {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.KinematicBody;
+        fixtureDef = new FixtureDef();
+        body = null;
+        fixture = null;
+        density = 0f;
+        friction = 0f;
+        restitution = 0f;
+        autoCollisionBox = true;
+        updateCollisions = true;
     }
 }

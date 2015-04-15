@@ -65,5 +65,10 @@ public class DynamicBodyComponent extends Component implements Pool.Poolable
         fixtureDef = new FixtureDef();
         body = null;
         fixture = null;
+        density = 0f;
+        friction = 0f;
+        restitution = 0f;
+        autoCollisionBox = true;
+        updateCollisions = true;
     }
 }

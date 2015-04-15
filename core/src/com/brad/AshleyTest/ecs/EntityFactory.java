@@ -12,6 +12,7 @@ import com.brad.AshleyTest.ecs.components.AssetComponent;
 import com.brad.AshleyTest.ecs.components.CameraControlComponent;
 import com.brad.AshleyTest.ecs.components.DynamicBodyComponent;
 import com.brad.AshleyTest.ecs.components.ExpireComponent;
+import com.brad.AshleyTest.ecs.components.JellyComponent;
 import com.brad.AshleyTest.ecs.components.KinematicBodyComponent;
 import com.brad.AshleyTest.ecs.components.MapComponent;
 import com.brad.AshleyTest.ecs.components.MotionComponent;
@@ -71,6 +72,8 @@ public class EntityFactory
 //        transform.pos.set(1.75f, .3f, 1);
         body.bodyDef.position.set(1.75f, .3f);
         body.makeBody(world);
+        body.autoCollisionBox = false;
+        body.setCollisionBox(129f / (Constants.SCALE), 96f / Constants.SCALE, 0, 0, 0);
         transform.pos.z = 1;
         Gdx.app.log("Ship", Float.toString(transform.pos.x) + " " + Float.toString(transform.pos.y));
         assets.atlasName = "sprites/packed/game/game.atlas";
@@ -116,6 +119,7 @@ public class EntityFactory
         texture.textures.put("ink", new TextureRegion());
         texture.frameString = "ink";
         transform.rotation = 180;
+        transform.pos.z = 0;
         expire.lifetime = 100;
 //        motion.accel.y = -10f/60;
 
@@ -134,6 +138,33 @@ public class EntityFactory
         Entity entity = engine.createEntity();
 
         TransformComponent transform = engine.createComponent(TransformComponent.class);
+        TextureComponent texture = engine.createComponent(TextureComponent.class);
+        AssetComponent assets = engine.createComponent(AssetComponent.class);
+        DynamicBodyComponent body = engine.createComponent(DynamicBodyComponent.class);
+        AnimationComponent animation = engine.createComponent(AnimationComponent.class);
+        JellyComponent control = engine.createComponent(JellyComponent.class);
+
+        body.makeBody(world);
+        transform.pos.z = 1;
+        assets.atlasName = "sprites/packed/game/game.atlas";
+        assets.textureName.add("jellyfish");
+        assets.textureName.add("jellyfish-02");
+        texture.textures.put("jellyfish", new TextureRegion());
+        texture.textures.put("jellyfish-02", new TextureRegion());
+        texture.frameString = "jellyfish";
+        Array<TextureRegion> frames = new Array<TextureRegion>();
+        frames.add(texture.textures.get("jellyfish"));
+        frames.add(texture.textures.get("jellyfish-02"));
+        Animation blink = new Animation(.5f, frames, Animation.PlayMode.LOOP);
+        animation.animations.put("blink", blink);
+
+        entity.add(transform);
+        entity.add(control);
+        entity.add(animation);
+        entity.add(assets);
+        entity.add(texture);
+        entity.add(body);
+
         return entity;
     }
 
